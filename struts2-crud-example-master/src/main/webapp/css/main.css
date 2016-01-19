@@ -1,0 +1,20 @@
+.error {
+	color: red;
+	font-weight: bold;
+}
+
+.employeeTable {
+	width: 100%;
+}
+
+.center {
+	text-align: center;
+}
+
+.label {
+	color: black;
+}
+
+.mt10 {
+	margin-top: 10px;
+}
