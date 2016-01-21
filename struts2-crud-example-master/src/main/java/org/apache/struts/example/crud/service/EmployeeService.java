@@ -1,19 +1,22 @@
 package org.apache.struts.example.crud.service;
 
-import org.apache.struts.example.crud.model.Employee;
-
 import java.util.List;
+
+import org.apache.struts.example.crud.dto.DepartmentDto;
+import org.apache.struts.example.crud.dto.EmployeeDto;
 
 public interface EmployeeService {
 
-    public List<Employee> getAllEmployees();
+    public List<EmployeeDto> getAllEmployees();
 
-    public void updateEmployee(Employee emp);
+    public void updateEmployee(EmployeeDto emp);
 
     public void deleteEmployee(Integer id);
 
-    public Employee getEmployee(Integer id);
+    public EmployeeDto getEmployee(Integer id);
 
-    public void insertEmployee(Employee emp);
+    public void insertEmployee(EmployeeDto emp);
+
+    public List<DepartmentDto> getAllDepartments();
 
 }

@@ -1,24 +1,21 @@
 package org.apache.struts.example.crud.action;
 
+import java.util.List;
+
+import org.apache.struts.example.crud.dto.DepartmentDto;
+import org.apache.struts.example.crud.dto.EmployeeDto;
+import org.apache.struts.example.crud.service.EmployeeService;
+import org.apache.struts.example.crud.service.impl.EmployeeServiceImpl;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
-import org.apache.struts.example.crud.model.Department;
-import org.apache.struts.example.crud.model.Employee;
-import org.apache.struts.example.crud.service.EmployeeService;
-import org.apache.struts.example.crud.service.DepartmentService;
-import org.apache.struts.example.crud.service.impl.DefaultDepartmentService;
-import org.apache.struts.example.crud.service.impl.DefaultEmployeeService;
-
-import java.util.List;
-
 public class EmployeeAction extends ActionSupport implements Preparable {
-    private EmployeeService empService = new DefaultEmployeeService();
-    private DepartmentService deptService = new DefaultDepartmentService();
+    private EmployeeService empService = new EmployeeServiceImpl();
 
-    private Employee employee;
-    private List<Employee> employees;
-    private List<Department> departments;
+    private EmployeeDto employee;
+    private List<EmployeeDto> employees;
+    private List<DepartmentDto> departments;
 
     /**
      * Loads employee data in case of editing, and loads departments in any
@@ -29,7 +26,7 @@ public class EmployeeAction extends ActionSupport implements Preparable {
     @Override
     public void prepare() throws Exception {
         // deparments list will be always displayed, even if validation fails
-        departments = deptService.getAllDepartments();
+        departments = empService.getAllDepartments();
         if (employee != null && employee.getEmployeeId() != null) {
             // retrieves the employee from data source in case of editing and
             // employee id. exists
@@ -65,20 +62,49 @@ public class EmployeeAction extends ActionSupport implements Preparable {
         return SUCCESS;
     }
 
-    public Employee getEmployee() {
+    /**
+     * @return the employee
+     */
+    public EmployeeDto getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    /**
+     * @param employee
+     *            the employee to set
+     */
+    public void setEmployee(EmployeeDto employee) {
         this.employee = employee;
     }
 
-    public List<Employee> getEmployees() {
+    /**
+     * @return the employees
+     */
+    public List<EmployeeDto> getEmployees() {
         return employees;
     }
 
-    public List<Department> getDepartments() {
+    /**
+     * @param employees
+     *            the employees to set
+     */
+    public void setEmployees(List<EmployeeDto> employees) {
+        this.employees = employees;
+    }
+
+    /**
+     * @return the departments
+     */
+    public List<DepartmentDto> getDepartments() {
         return departments;
+    }
+
+    /**
+     * @param departments
+     *            the departments to set
+     */
+    public void setDepartments(List<DepartmentDto> departments) {
+        this.departments = departments;
     }
 
 }

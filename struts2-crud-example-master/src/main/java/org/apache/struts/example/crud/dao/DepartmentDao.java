@@ -1,14 +1,13 @@
 package org.apache.struts.example.crud.dao;
 
-import org.apache.struts.example.crud.model.Department;
-
 import java.util.List;
-import java.util.Map;
+
+import org.apache.struts.example.crud.model.Department;
 
 public interface DepartmentDao {
 
-    public List<Department> getAllDepartments();
+    public Department getDepartmentById(Integer departmentId);
 
-    public Map<Integer, Department> getDepartmentsMap();
+    public List<Department> getAllDepartments();
 
 }

@@ -8,12 +8,12 @@ public interface EmployeeDao {
 
     public List<Employee> getAllEmployees();
 
-    public Employee getEmployee(Integer id);
+    public Employee getEmployeeById(Integer id);
 
     public void update(Employee emp);
 
     public void insert(Employee emp);
 
-    public void delete(Integer id);
+    public void delete(Employee emp);
 
 }
