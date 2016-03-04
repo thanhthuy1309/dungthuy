@@ -4,18 +4,24 @@ import java.util.List;
 
 import org.apache.struts.example.crud.dto.DepartmentDto;
 import org.apache.struts.example.crud.dto.EmployeeDto;
+import org.apache.struts.example.crud.service.DepartmentSevice;
 import org.apache.struts.example.crud.service.EmployeeService;
+import org.apache.struts.example.crud.service.impl.DepartmentSeviceImpl;
 import org.apache.struts.example.crud.service.impl.EmployeeServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
 public class EmployeeAction extends ActionSupport implements Preparable {
+	private static final long serialVersionUID = 1L;
     private EmployeeService empService = new EmployeeServiceImpl();
+    private DepartmentSevice departmentService = new DepartmentSeviceImpl();
 
     private EmployeeDto employee;
+    private DepartmentDto department;
     private List<EmployeeDto> employees;
     private List<DepartmentDto> departments;
+    private int modeTab = 0;
 
     /**
      * Loads employee data in case of editing, and loads departments in any
@@ -26,7 +32,7 @@ public class EmployeeAction extends ActionSupport implements Preparable {
     @Override
     public void prepare() throws Exception {
         // deparments list will be always displayed, even if validation fails
-        departments = empService.getAllDepartments();
+        departments = departmentService.getAllDepartments();
         if (employee != null && employee.getEmployeeId() != null) {
             // retrieves the employee from data source in case of editing and
             // employee id. exists
@@ -43,6 +49,7 @@ public class EmployeeAction extends ActionSupport implements Preparable {
         } else {
             empService.updateEmployee(employee);
         }
+        modeTab = 0;
         return SUCCESS;
     }
 
@@ -59,6 +66,33 @@ public class EmployeeAction extends ActionSupport implements Preparable {
      */
     public String list() {
         employees = empService.getAllEmployees();
+        return SUCCESS;
+    }
+
+    public String newDepartment() {
+        modeTab = 1;
+        if (department != null && department.getDepartmentId() != null) {
+            // retrieves the employee from data source in case of editing and
+            // employee id. exists
+        	department = departmentService.getDepartment(department.getDepartmentId());
+        } else {
+        	department = new DepartmentDto();
+        }
+        return SUCCESS;
+    }
+
+    public String saveDepartment() {
+    	if (department.getDepartmentId() == null) {
+            departmentService.insertDepartment(department);
+        } else {
+        	departmentService.updateDepartment(department);
+        }
+    	modeTab = 1;
+    	return SUCCESS;
+    }
+
+    public String deleteDepartment() {
+        departmentService.deleteDepartment(department.getDepartmentId());;
         return SUCCESS;
     }
 
@@ -106,5 +140,21 @@ public class EmployeeAction extends ActionSupport implements Preparable {
     public void setDepartments(List<DepartmentDto> departments) {
         this.departments = departments;
     }
+
+	public DepartmentDto getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(DepartmentDto department) {
+		this.department = department;
+	}
+
+	public int getModeTab() {
+		return modeTab;
+	}
+
+	public void setModeTab(int modeTab) {
+		this.modeTab = modeTab;
+	}
 
 }

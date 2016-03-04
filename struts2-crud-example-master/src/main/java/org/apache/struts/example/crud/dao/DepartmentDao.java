@@ -10,4 +10,9 @@ public interface DepartmentDao {
 
     public List<Department> getAllDepartments();
 
+    public void update(Department emp);
+
+    public void insert(Department emp);
+
+    public void delete(Department emp);
 }

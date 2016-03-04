@@ -2,7 +2,6 @@ package org.apache.struts.example.crud.service;
 
 import java.util.List;
 
-import org.apache.struts.example.crud.dto.DepartmentDto;
 import org.apache.struts.example.crud.dto.EmployeeDto;
 
 public interface EmployeeService {
@@ -16,7 +15,5 @@ public interface EmployeeService {
     public EmployeeDto getEmployee(Integer id);
 
     public void insertEmployee(EmployeeDto emp);
-
-    public List<DepartmentDto> getAllDepartments();
 
 }

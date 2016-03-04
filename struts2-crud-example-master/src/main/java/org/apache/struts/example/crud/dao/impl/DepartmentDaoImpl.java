@@ -34,4 +34,35 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return departments;
     }
 
+	@Override
+	public void update(Department emp) {
+		Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.update(emp);
+        session.getTransaction().commit();
+        session.close();
+	}
+
+	@Override
+	public void insert(Department emp) {
+		try {
+            Session session = HibernateUtil.getSession();
+            session.beginTransaction();
+            session.save(emp);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+
+	@Override
+	public void delete(Department emp) {
+		Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        session.delete(emp);
+        session.getTransaction().commit();
+        session.close();
+	}
+
 }
